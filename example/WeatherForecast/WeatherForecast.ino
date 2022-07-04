@@ -1,4 +1,4 @@
-#include <ESP8266_Heweather.h>
+#include <ESP32_Heweather.h>
 
 const char* ssid     = "SSID";     // WiFi名称
 const char* password = "PASSWORD"; // WiFi密码
