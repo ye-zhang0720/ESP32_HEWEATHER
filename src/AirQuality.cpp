@@ -22,7 +22,7 @@ bool AirQuality::get()
     Serial.print("[HTTPS] begin...\n");
 #endif
     String url = "https://devapi.heweather.net/v7/air/now?location=" + _reqLocation +
-                 "&key=" + _requserKey + "&unit=" + _reqUnit + "&lang=" + _reqLang + "&gzip=n";
+                 "&key=" + _requserKey + "&unit=" + _reqUnit + "&lang=" + _reqLang;
     HTTPClient http;
 #ifdef DEBUG
     Serial.print("[HTTP] begin...\n");
@@ -48,11 +48,18 @@ bool AirQuality::get()
         // file found at server
         if (httpCode == HTTP_CODE_OK)
         {
-            String payload = http.getString();
+            WiFiClient *stream = http.getStreamPtr();
+            int size = http.getSize();
+            uint8_t inbuff[size];
+            stream->readBytes(inbuff, size);
+            uint8_t *outbuf = NULL;
+            uint32_t out_size = 0;
+            int result = ArduinoUZlib::decompress(inbuff, size, outbuf, out_size);
+            String payload = String(outbuf, out_size);
+            _parseNowJson(payload);
             #ifdef DEBUG
             Serial.println(payload);
             #endif
-            _parseNowJson(payload);
         }
     }
     else

@@ -7,6 +7,7 @@
 #include <HTTPClient.h>
 //#include <WiFiClientSecureBearSSL.h>
 #include <WiFiClientSecure.h>
+#include <ArduinoUZlib.h>
 // #define DEBUG   // 调试用
 
 class AirQuality {
