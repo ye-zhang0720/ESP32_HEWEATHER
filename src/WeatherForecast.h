@@ -5,7 +5,7 @@
 #include <ArduinoJson.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
-
+#include <ArduinoUZlib.h>
 //#define DEBUG // 调试用
 
 class WeatherForecast {
